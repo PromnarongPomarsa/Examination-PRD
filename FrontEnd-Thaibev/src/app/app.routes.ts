@@ -1,3 +1,9 @@
 import { Routes } from '@angular/router';
+import { QuizListComponent } from './features/components/quiz-add/quiz-add.component';
+import { QuizFormComponent } from './features/components/quiz-form/quiz-form.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
+    { path: 'form', component: QuizFormComponent },
+    { path: 'add', component: QuizListComponent },
+]

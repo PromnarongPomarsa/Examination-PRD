@@ -1,0 +1,39 @@
+<div class="quiz-container">
+  <div class="header-banner">IT 08-1</div>
+
+  <div class="content-body">
+    <div class="action-bar">
+      <p-button 
+        label="เพิ่มข้อสอบ" 
+        severity="success" 
+        (onClick)="addQuestion()">
+      </p-button>
+    </div>
+
+    <!-- <div *ngFor="let q of questions; let i = index" class="question-card">
+      <div class="question-header">
+        <span class="question-text">
+          {{ i + 1 }}. {{ q.text }}
+        </span>
+        
+        <p-button 
+          label="ลบ" 
+          severity="danger" 
+          size="small"
+          (onClick)="deleteQuestion(q.id)">
+        </p-button>
+      </div>
+
+      <div class="choices-container">
+        <div *ngFor="let choice of q.choices" class="choice-item">
+          <p-radioButton 
+            [name]="'group' + q.id" 
+            [value]="choice" 
+            [(ngModel)]="q.selectedAnswer">
+          </p-radioButton>
+          <label class="ml-2">{{ choice }}</label>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
