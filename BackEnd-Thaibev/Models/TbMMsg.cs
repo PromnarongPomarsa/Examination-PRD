@@ -1,0 +1,11 @@
+﻿namespace BackEnd_Thaibev.Models
+{
+    public class TbMMsg
+    {
+        public int Id { get; set; }
+        public string? msg_code { get; set; }
+        public string? msg_desc { get; set; }
+        public string? create_by { get; set; }
+        public DateTime? create_date { get; set; }
+    }
+}

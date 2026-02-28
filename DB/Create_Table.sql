@@ -4,8 +4,6 @@ CREATE TABLE public.tb_m_msg (
     msg_desc        VARCHAR(20),
     create_by    	VARCHAR(20),
     create_date     TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    lastupdate_by   VARCHAR(20),
-    lastupdate_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE public.tb_t_question (
@@ -17,8 +15,6 @@ CREATE TABLE public.tb_t_question (
     answer_four		VARCHAR(20),
     create_by    	VARCHAR(20),
     create_date     TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    lastupdate_by   VARCHAR(20),
-    lastupdate_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE public.tb_t_correct_answer (
@@ -30,6 +26,4 @@ CREATE TABLE public.tb_t_correct_answer (
     answer_four		VARCHAR(20),
     create_by    	VARCHAR(20),
     create_date     TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    lastupdate_by   VARCHAR(20),
-    lastupdate_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
