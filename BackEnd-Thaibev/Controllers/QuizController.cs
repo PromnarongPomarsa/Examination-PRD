@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using BackEnd_Thaibev.Repository.IRepository;
+﻿using AspNetCoreGeneratedDocument;
 using BackEnd_Thaibev.Models;
-using AspNetCoreGeneratedDocument;
+using BackEnd_Thaibev.Models.Dto;
+using BackEnd_Thaibev.Repository.IRepository;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd_Thaibev.Controllers
 {
@@ -17,27 +18,9 @@ namespace BackEnd_Thaibev.Controllers
             _response = new ResponseDto();
             _masterRepo = masterRepo;
         }
-        // GET: QuizController
-        public ActionResult Index()
-        {
-            return View();
-        }
 
-        // GET: QuizController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: QuizController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: QuizController/Create
         [HttpGet("get-all-msg")]
-        public async Task<ResponseDto> getAllMsg(IFormCollection collection)
+        public async Task<ResponseDto> getAllMsg()
         {
             try
             {
@@ -53,46 +36,35 @@ namespace BackEnd_Thaibev.Controllers
             return _response;
         }
 
-        // GET: QuizController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: QuizController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [HttpPost("save-question")]
+        public async Task<ResponseDto> saveQuestion([FromBody] TbTQuestionDto request)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                _response.IsSuccess = false;
+                _response.Message = ex.Message.ToString();
             }
+            return _response;
         }
 
-        // GET: QuizController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: QuizController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpPost("get-question")]
+        public async Task<ResponseDto> getQuestion()
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                _response.IsSuccess = false;
+                _response.Message = ex.Message.ToString();
             }
+            return _response;
         }
+
     }
 }
