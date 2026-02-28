@@ -1,39 +1,54 @@
-<div class="quiz-container">
-  <div class="header-banner">IT 08-1</div>
+<div class="quiz-page grid p-0">
 
-  <div class="content-body">
-    <div class="action-bar">
-      <p-button 
-        label="เพิ่มข้อสอบ" 
-        severity="success" 
-        (onClick)="addQuestion()">
-      </p-button>
-    </div>
-
-    <!-- <div *ngFor="let q of questions; let i = index" class="question-card">
-      <div class="question-header">
-        <span class="question-text">
-          {{ i + 1 }}. {{ q.text }}
-        </span>
-        
-        <p-button 
-          label="ลบ" 
-          severity="danger" 
-          size="small"
-          (onClick)="deleteQuestion(q.id)">
-        </p-button>
-      </div>
-
-      <div class="choices-container">
-        <div *ngFor="let choice of q.choices" class="choice-item">
-          <p-radioButton 
-            [name]="'group' + q.id" 
-            [value]="choice" 
-            [(ngModel)]="q.selectedAnswer">
-          </p-radioButton>
-          <label class="ml-2">{{ choice }}</label>
+  <!-- LEFT PANEL -->
+    <p-card class="bg-gray-200 border-none shadow-0 w-full h-screen">
+      <!-- Header -->
+      <ng-template pTemplate="header">
+        <div class="bg-green-600 text-white text-center font-bold p-2 text-lg">
+          IT 08-1
         </div>
+      </ng-template>
+
+      <!-- Content -->
+      <div class="p-6">
+
+        <button pButton 
+                type="button" 
+                label="เพิ่มข้อสอบ" 
+                class="p-button-success mb-3"
+                (click)="addQuestion()">
+        </button>
+
+        @if (questions.length > 0) {
+          @for (question of questions;track  question.id) {
+            <div class="mb-4">
+              <div class="flex align-items-center gap-2 mb-2">
+                <span class="text-black-alpha-90">{{questions.indexOf(question) + 1 }}. {{ question.text }}</span>
+                <button pButton 
+                        type="button" 
+                        label="ลบ" 
+                        class="p-button-danger p-button-sm">
+                </button>
+              </div>
+
+              @for (option of question.options; track option) {
+                <div class="field-radiobutton gray-radio">
+                  <p-radioButton
+                    [name]="'q' + question.id"
+                    [value]="option"
+                    [(ngModel)]="question.answer">
+                  </p-radioButton>
+                  <label class="ml-2 text-black-alpha-90">{{ option }}</label>
+                </div>
+              }
+            </div>
+          }
+        } 
+        @else {
+          <div class="text-center text-back-500">
+            <p>ยังไม่มีข้อสอบ</p>
+          </div>
+        }
       </div>
-    </div> -->
+    </p-card>
   </div>
-</div>

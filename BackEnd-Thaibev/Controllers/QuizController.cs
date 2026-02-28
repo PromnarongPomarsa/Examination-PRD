@@ -42,7 +42,8 @@ namespace BackEnd_Thaibev.Controllers
             try
             {
                 ResponseDto response = await _masterRepo.getAllMsg();
-                _response.Result = response.Result;
+                _response = response;
+
             }
             catch
             {

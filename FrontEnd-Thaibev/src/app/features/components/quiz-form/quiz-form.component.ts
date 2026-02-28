@@ -1,9 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
+// PrimeNG imports
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { CardModule } from 'primeng/card';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+
+// Import the component
+import { QuizAddComponent } from '../quiz-add/quiz-add.component';
+
+//import model
+import { ResponseDto } from '../../../models/ResponseDto.modal';
+
 @Component({
   selector: 'app-quiz-form',
   standalone: true,
@@ -11,21 +22,49 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     CommonModule,
     RadioButtonModule,
     ButtonModule,
-    FormsModule],
+    FormsModule,
+    CardModule,
+  ],
   templateUrl: './quiz-form.component.html',
-  styleUrl: './quiz-form.component.css'
+  styleUrl: './quiz-form.component.css',
+  providers: [DialogService, DynamicDialogRef]
 })
 export class QuizFormComponent {
+  // open modal
+  ref: DynamicDialogRef | null = null;
+  public dialogService = inject(DialogService);
 
-  questions = [
-    { id: 1, text: 'ข้อใดต่างจากข้ออื่น', choices: ['3', '5', '9', '11'] },
-    { id: 2, text: 'X + 2 = 4 จงหาค่า X', choices: ['1', '2', '3', '4'] }
+  // variables for quiz form
+  q1: string = '';
+  q2: string = '';
+  displayItems = false;
+  // questions: any[] = [];
+  questions: any[] = [
+    {
+      id: 1,
+      text: 'ข้อใดกล่าวถูกต้อง',
+      options: ['3', '5', '9', '11'],
+      answer: null
+    },
+    {
+      id: 3,
+      text: 'X + 2 = 4 จงหาค่า X',
+      options: ['1', '2', '3', '4'],
+      answer: null
+    }
   ];
-
   constructor(private router: Router) { }
 
   addQuestion() {
-    this.router.navigate(['/add']); // Go to IT 08-2
+    const ref = this.dialogService.open(QuizAddComponent, {
+      width: '50%',
+      modal: true,
+      closable: true,
+    });
+
+    ref?.onClose.subscribe((result: ResponseDto<any>)=> {
+      console.log("closed with result: ", result);
+    });
   }
 
   deleteQuestion(id: number) {
