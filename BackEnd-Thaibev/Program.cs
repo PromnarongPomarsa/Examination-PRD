@@ -1,7 +1,13 @@
 ﻿using BackEnd_Thaibev.Data;
+using BackEnd_Thaibev.Repositories;
+using BackEnd_Thaibev.Repositories.IRepositories;
 using BackEnd_Thaibev.Repository;
 using BackEnd_Thaibev.Repository.IRepository;
+using BackEnd_Thaibev.Services;
+using BackEnd_Thaibev.Services.IServices;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -23,8 +29,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllersWithViews();
 
 // service
+builder.Services.AddScoped<IQuestionService, QuestionService>();
 // repository
 builder.Services.AddScoped<IMasterRepository, MasterRepository>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -34,6 +45,8 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 

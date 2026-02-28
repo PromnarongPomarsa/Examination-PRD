@@ -4,7 +4,10 @@ namespace BackEnd_Thaibev.Repositories.IRepositories
 {
     public interface IQuestionRepository
     {
-        Task<ResponseDto> saveQuestion(TbTQuestion entity)
-        Task<ResponseDto> deleteQuestion(TbTQuestion entity)
+        Task<ResponseDto> saveQuestion(TbTQuestion entity);
+        Task<ResponseDto> deleteQuestion(TbTQuestion entity);
+        Task<ResponseDto> getQuestionAll();
+        Task<ResponseDto> getQuestionById(int question_id);
+        Task<ResponseDto> getChoiceItemsAll();
     }
 }

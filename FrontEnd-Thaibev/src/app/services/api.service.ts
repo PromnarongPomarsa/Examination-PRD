@@ -14,4 +14,8 @@ export class ApiService {
         return this.http.get(`/api/quiz/get-all-msg`);
     }
 
+    getQuestions(): Observable<any> {
+        return this.http.get(`/api/quiz/get-question`);
+    }
+
 }

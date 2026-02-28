@@ -8,11 +8,16 @@ CREATE TABLE public.tb_m_msg (
 
 CREATE TABLE public.tb_t_question (
     id              BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    question        VARCHAR(255), 
-    answer_first    VARCHAR(50),
-    answer_second	VARCHAR(50),
-    answer_third	VARCHAR(50),
-    answer_four		VARCHAR(50),
-    create_by    	VARCHAR(20),
+    question        text not null, 
     create_date     TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE public.tb_t_choice_items (
+    id              BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    ref_question_id INT REFERENCES tb_t_question(id), 
+    choice_text   	TEXT NOT NULL,
+    is_correct		BOOLEAN DEFAULT FALSE,
+    create_date     TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+

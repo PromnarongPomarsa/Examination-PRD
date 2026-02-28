@@ -2,6 +2,7 @@
 using BackEnd_Thaibev.Models;
 using BackEnd_Thaibev.Models.Dto;
 using BackEnd_Thaibev.Repositories.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd_Thaibev.Repositories
 {
@@ -19,31 +20,100 @@ namespace BackEnd_Thaibev.Repositories
         {
             try
             {
-               await _db.tb_t_question.Add(entity);
-               await _db.SaveChanges();
-               _response.Result = entity;
+                _db.tb_t_question.Add(entity);
+                await _db.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
                 _response.Message = ex.Message.ToString();
             }
-            return Task.FromResult(_response);
+            return _response;
+        }
+
+        public async Task<ResponseDto> saveChoice(TbTChoiceItems entity)
+        {
+            try
+            {
+                _db.tb_t_choice_items.Add(entity);
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message.ToString();
+            }
+            return _response;
         }
         public async Task<ResponseDto> deleteQuestion(TbTQuestion entity)
         {
             try
             {
-               await _db.tb_t_question.Remove(entity);
-               await _db.SaveChanges();
-               _response.Result = entity;
+                _db.tb_t_question.Remove(entity);
+                await _db.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
                 _response.Message = ex.Message.ToString();
             }
-            return Task.FromResult(_response);
+            return _response;
+        }
+        public async Task<ResponseDto> getQuestionAll()
+        {
+            try
+            {
+                List<TbTQuestion> listData = await _db.tb_t_question.OrderBy(i => i.id).ToListAsync();
+
+                if (listData.Count == 0)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "No reacord found";
+                    _response.Result = listData;
+                }
+
+                _response.Result = listData;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message.ToString();
+            }
+            return _response;
+        }
+        public async Task<ResponseDto> getChoiceItemsAll()
+        {
+            try
+            {
+                List<TbTChoiceItems> listData = await _db.tb_t_choice_items.OrderBy(i => i.id).ToListAsync();
+                if (listData.Count == 0)
+                {
+                    _response.IsSuccess = false;
+                    _response.Message = "No reacord found";
+                }
+                _response.Result = listData;
+
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message.ToString();
+            }
+            return _response;
+        }
+        public async Task<ResponseDto> getQuestionById(int question_id)
+        {
+            try
+            {
+                TbTQuestion getData = await _db.tb_t_question.FirstOrDefaultAsync(p => p.id == question_id);
+                _response.Result = getData;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message.ToString();
+            }
+            return _response;
         }
     }
 }

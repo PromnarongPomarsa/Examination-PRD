@@ -1,0 +1,13 @@
+﻿using BackEnd_Thaibev.Models.Dto;
+
+namespace BackEnd_Thaibev.Models
+{
+    public class QuestionListDto
+    {
+        public int? id { get; set; }
+        public string? question { get; set; }
+        public List<TbTChoiceItemsDto>? choiceItems { get; set; }
+        public DateTime? createDate { get; set; }
+
+    }
+}

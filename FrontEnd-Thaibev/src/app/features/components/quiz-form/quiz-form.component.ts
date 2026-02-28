@@ -15,6 +15,7 @@ import { QuizAddComponent } from '../quiz-add/quiz-add.component';
 //import model
 import { ResponseDto } from '../../../models/ResponseDto.modal';
 import { MsgDto } from '../../../models/MsgDto.modal';
+import { ListQuestionDto } from '../../../models/ListQuestionDto';
 
 //service api
 import { ApiService } from '../../../services/api.service';
@@ -64,6 +65,19 @@ export class QuizFormComponent implements OnInit {
 
   ngOnInit() {
     this.getMsg();
+  }
+
+  getQuestionsData() {
+    this._apiService.getQuestions().subscribe({
+      next: (response: ResponseDto<ListQuestionDto[]>) => {
+        if (response.isSuccess == true) {
+          const 
+        }
+      },
+      error: (error) => {
+        console.log("Error getQuestionData: ",error)
+      }
+    })
   }
 
   getMsg() {
