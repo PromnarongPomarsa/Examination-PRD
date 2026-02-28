@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -14,6 +14,10 @@ import { QuizAddComponent } from '../quiz-add/quiz-add.component';
 
 //import model
 import { ResponseDto } from '../../../models/ResponseDto.modal';
+import { MsgDto } from '../../../models/MsgDto.modal';
+
+//service api
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-quiz-form',
@@ -29,7 +33,7 @@ import { ResponseDto } from '../../../models/ResponseDto.modal';
   styleUrl: './quiz-form.component.css',
   providers: [DialogService, DynamicDialogRef]
 })
-export class QuizFormComponent {
+export class QuizFormComponent implements OnInit {
   // open modal
   ref: DynamicDialogRef | null = null;
   public dialogService = inject(DialogService);
@@ -38,6 +42,7 @@ export class QuizFormComponent {
   q1: string = '';
   q2: string = '';
   displayItems = false;
+  nonItems: string = "";
   // questions: any[] = [];
   questions: any[] = [
     {
@@ -53,13 +58,33 @@ export class QuizFormComponent {
       answer: null
     }
   ];
-  constructor(private router: Router) { }
+  constructor(
+    private _apiService: ApiService,
+    router: Router) { }
+
+  ngOnInit() {
+    this.getMsg();
+  }
+
+  getMsg() {
+    this._apiService.getAllMsg().subscribe({
+      next: (response: ResponseDto<MsgDto[]>) => {
+        if (response.isSuccess == true) {
+          this.nonItems = response.result.find((msg: MsgDto) => msg.msgCode === 'T001')?.msgDesc || "";
+        }
+      },
+      error: (error) => {
+        console.log("Error getMsg: ",error);
+      }
+    });
+  }
 
   addQuestion() {
     const ref = this.dialogService.open(QuizAddComponent, {
       width: '50%',
       modal: true,
       closable: true,
+      styleClass: 'quiz-page'
     });
 
     ref?.onClose.subscribe((result: ResponseDto<any>)=> {

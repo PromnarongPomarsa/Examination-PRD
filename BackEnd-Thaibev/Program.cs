@@ -1,10 +1,24 @@
-using BackEnd_Thaibev.Data;
+﻿using BackEnd_Thaibev.Data;
 using BackEnd_Thaibev.Repository;
 using BackEnd_Thaibev.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(MyAllowSpecificOrigins, policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); // ⭐ Cookie
+    });
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -17,16 +31,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
-
 
 app.UseHttpsRedirection();
 app.UseRouting();
