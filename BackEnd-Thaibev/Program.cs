@@ -1,10 +1,20 @@
+using BackEnd_Thaibev.Data;
 using BackEnd_Thaibev.Repository;
 using BackEnd_Thaibev.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// service
+// repository
+builder.Services.AddScoped<IMasterRepository, MasterRepository>();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 
@@ -16,9 +26,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-// service
-// repository
-builder.Services.AddScoped<IMasterRepository, MasterRepository>();
 
 
 app.UseHttpsRedirection();

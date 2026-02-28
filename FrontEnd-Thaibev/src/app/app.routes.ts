@@ -3,7 +3,7 @@ import { QuizListComponent } from './features/components/quiz-add/quiz-add.compo
 import { QuizFormComponent } from './features/components/quiz-form/quiz-form.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'list', pathMatch: 'full' },
+    { path: '', redirectTo: 'form', pathMatch: 'full' },
     { path: 'form', component: QuizFormComponent },
     { path: 'add', component: QuizListComponent },
 ]

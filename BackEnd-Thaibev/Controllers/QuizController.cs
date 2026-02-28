@@ -1,10 +1,22 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BackEnd_Thaibev.Repository.IRepository;
+using BackEnd_Thaibev.Models;
+using AspNetCoreGeneratedDocument;
 
 namespace BackEnd_Thaibev.Controllers
 {
+    [Route("api/quiz")]
+
     public class QuizController : Controller
     {
+        private ResponseDto _response;
+        private readonly IMasterRepository _masterRepo;
+        public QuizController(IMasterRepository masterRepo)
+        {
+            _response = new ResponseDto();
+            _masterRepo = masterRepo;
+        }
         // GET: QuizController
         public ActionResult Index()
         {
@@ -25,17 +37,19 @@ namespace BackEnd_Thaibev.Controllers
 
         // POST: QuizController/Create
         [HttpGet("get-all-msg")]
-        public ActionResult getAllMsg(IFormCollection collection)
+        public async Task<ResponseDto> getAllMsg(IFormCollection collection)
         {
             try
             {
-                
-                return RedirectToAction(nameof(Index));
+                ResponseDto response = await _masterRepo.getAllMsg();
+                _response.Result = response.Result;
             }
             catch
             {
-                return View();
+                _response.IsSuccess = false;
+                _response.Message = "Error while getting data";
             }
+            return _response;
         }
 
         // GET: QuizController/Edit/5

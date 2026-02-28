@@ -1,20 +1,18 @@
 ﻿using BackEnd_Thaibev.Models;
 using BackEnd_Thaibev.Repository.IRepository;
 using BackEnd_Thaibev.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace BackEnd_Thaibev.Repository
 {
     public class MasterRepository : IMasterRepository
     {
         private ResponseDto _response;
-        private readonly IConfiguration _configuration;
-        private readonly ILogger<MasterRepository> _logger;
         private readonly AppDbContext _db;
 
-        public MasterRepository(IConfiguration configuration, ILogger<MasterRepository> logger, AppDbContext db)
+        public MasterRepository(AppDbContext db)
         {
             _response = new ResponseDto();
-            _configuration = configuration;
-            _logger = logger;
             _db = db;
         }
 
@@ -22,7 +20,7 @@ namespace BackEnd_Thaibev.Repository
         {
             try
             {
-                var listMsg = _db.tb_m_msg.ToList();
+                List<TbMMsg> listMsg = await _db.tb_m_msg.ToListAsync();
                 _response.Result = listMsg;
             }
             catch (Exception ex)
