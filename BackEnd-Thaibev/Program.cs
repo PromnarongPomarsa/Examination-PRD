@@ -1,3 +1,6 @@
+using BackEnd_Thaibev.Repository;
+using BackEnd_Thaibev.Repository.IRepository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,6 +15,11 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+// service
+// repository
+builder.Services.AddScoped<IMasterRepository, MasterRepository>();
+
 
 app.UseHttpsRedirection();
 app.UseRouting();

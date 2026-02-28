@@ -20,6 +20,17 @@ namespace BackEnd_Thaibev.Repository
 
         public async Task<ResponseDto> getAllMsg()
         {
+            try
+            {
+                var listMsg = _db.tb_m_msg.ToList();
+                _response.Result = listMsg;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+
             return _response;
         }
 
