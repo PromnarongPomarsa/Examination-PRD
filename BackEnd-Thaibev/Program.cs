@@ -53,6 +53,14 @@ app.UseRouting();
 
 app.UseCors(MyAllowSpecificOrigins);
 
+// for railway
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
+
+
 app.UseAuthorization();
 
 app.MapStaticAssets();
