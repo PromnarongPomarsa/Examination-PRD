@@ -6,6 +6,7 @@ COPY . .
 RUN npm run build --configuration=production
 
 FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist/thaibev-test /usr/share/nginx/html
-CMD ["/bin/sh", "-c", "sed -i 's/listen       80;/listen '\"$PORT\"';/' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
-EXPOSE 80
+
+CMD ["sh", "-c", "nginx -g 'daemon off;'"]
