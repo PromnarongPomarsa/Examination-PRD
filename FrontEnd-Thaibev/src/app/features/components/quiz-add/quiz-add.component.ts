@@ -47,10 +47,10 @@ export class QuizAddComponent implements OnInit {
 
   defineValue() {
     this.choiceItems = [
-      { reqQuestionId: 0, choiceText: 'ตัวเลือกที่ 1', isCorrect: 'Y', createDate: new Date() },
-      { reqQuestionId: 0, choiceText: 'ตัวเลือกที่ 2', isCorrect: 'N', createDate: new Date() },
-      { reqQuestionId: 0, choiceText: 'ตัวเลือกที่ 3', isCorrect: 'N', createDate: new Date() },
-      { reqQuestionId: 0, choiceText: 'ตัวเลือกที่ 4', isCorrect: 'N', createDate: new Date() }
+      { reqQuestionId: 0, choiceText: '', isCorrect: 'Y', createDate: new Date() },
+      { reqQuestionId: 0, choiceText: '', isCorrect: 'N', createDate: new Date() },
+      { reqQuestionId: 0, choiceText: '', isCorrect: 'N', createDate: new Date() },
+      { reqQuestionId: 0, choiceText: '', isCorrect: 'N', createDate: new Date() }
     ];
   }
 

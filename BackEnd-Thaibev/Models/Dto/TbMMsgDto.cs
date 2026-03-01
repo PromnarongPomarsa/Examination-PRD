@@ -5,7 +5,6 @@
         public int? id { get; set; }
         public string? msgCode { get; set; }
         public string? msgDesc { get; set; }
-        public string? createBy { get; set; }
         public DateTime? createDate { get; set; }
 
     }
