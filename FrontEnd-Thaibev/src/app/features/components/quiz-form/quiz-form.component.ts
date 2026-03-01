@@ -62,7 +62,7 @@ export class QuizFormComponent implements OnInit {
     this._apiService.getQuestions().subscribe({
       next: (response: ResponseDto<ListQuestionDto[]>) => {
         this.isLoading = false;
-          this.getQuestionsData();
+        this.questions = response.result ? response.result : [];
         console.log("questions: ", this.questions);
       },
       error: (error) => {
