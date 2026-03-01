@@ -26,7 +26,7 @@ import { ResponseDto } from '../../../models/ResponseDto.modal';
   ],
   templateUrl: './quiz-add.component.html',
   styleUrl: './quiz-add.component.css',
-  providers: [DialogService, DynamicDialogRef]
+  providers: []
 })
 export class QuizAddComponent implements OnInit {
   public ref = inject(DynamicDialogRef);
