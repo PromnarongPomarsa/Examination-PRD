@@ -1,9 +1,15 @@
 export interface ListQuestionDto {
     id: number;
-    question: string;
-    choiceFirst: string;
-    choiceSecond: string;
-    choiceThird: string;
-    choiceFourth: string;
-    createDate: Date;
+    question?: string;
+    answer?: string;
+    choiceItems?: ListChoiceItemDto[];
+    createDate?: Date;
+}
+
+export interface ListChoiceItemDto {
+    id: number;
+    reqQuestionId?: number;
+    choiceText?: string;
+    isCorrect?: string;
+    createDate?: Date;
 }

@@ -8,7 +8,8 @@ CREATE TABLE public.tb_m_msg (
 
 CREATE TABLE public.tb_t_question (
     id              BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    question        text not null, 
+    question        text not null,
+    answer			text,
     create_date     TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -19,5 +20,12 @@ CREATE TABLE public.tb_t_choice_items (
     is_correct		BOOLEAN DEFAULT FALSE,
     create_date     TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
+
+DROP TABLE tb_t_question CASCADE;
+
+truncate table tb_t_question;
+
+select * from tb_t_choice_items;
+select * from tb_t_question ;
 
 

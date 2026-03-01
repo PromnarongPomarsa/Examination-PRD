@@ -36,7 +36,7 @@ namespace BackEnd_Thaibev.Controllers
             return _response = response;
         }
 
-        [HttpPost("get-question")]
+        [HttpGet("get-question")]
         public async Task<ResponseDto> getQuestion()
         {
             ResponseDto response = await _questionService.getAllQuestion();

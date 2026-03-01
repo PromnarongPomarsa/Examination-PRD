@@ -44,35 +44,37 @@ export class QuizFormComponent implements OnInit {
   q2: string = '';
   displayItems = false;
   nonItems: string = "";
-  // questions: any[] = [];
-  questions: any[] = [
-    {
-      id: 1,
-      text: 'ข้อใดกล่าวถูกต้อง',
-      options: ['3', '5', '9', '11'],
-      answer: null
-    },
-    {
-      id: 3,
-      text: 'X + 2 = 4 จงหาค่า X',
-      options: ['1', '2', '3', '4'],
-      answer: null
-    }
-  ];
+  questions: ListQuestionDto[] = [];
+  // questions: any[] = [
+  //   {
+  //     id: 1,
+  //     text: 'ข้อใดกล่าวถูกต้อง',
+  //     options: ['3', '5', '9', '11'],
+  //     answer: null
+  //   },
+  //   {
+  //     id: 3,
+  //     text: 'X + 2 = 4 จงหาค่า X',
+  //     options: ['1', '2', '3', '4'],
+  //     answer: null
+  //   }
+  // ];
   constructor(
     private _apiService: ApiService,
     router: Router) { }
 
   ngOnInit() {
     this.getMsg();
+    this.getQuestionsData();
   }
 
   getQuestionsData() {
     this._apiService.getQuestions().subscribe({
       next: (response: ResponseDto<ListQuestionDto[]>) => {
         if (response.isSuccess == true) {
-          const 
+          this.questions = response.result;
         }
+          console.log("questions: ", this.questions);
       },
       error: (error) => {
         console.log("Error getQuestionData: ",error)
