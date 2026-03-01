@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://localhost:7001",
+    "target": "https://rare-endurance-production-45b3.up.railway.app/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
