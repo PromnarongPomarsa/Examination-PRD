@@ -13,6 +13,7 @@ import { ApiService } from '../../../services/api.service';
 //import model
 import { ListQuestionDto } from '../../../models/ListQuestionDto';
 import { ResponseDto } from '../../../models/ResponseDto.modal';
+import { MsgDto } from '../../../models/MsgDto.modal';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class QuizAddComponent implements OnInit {
   public ref = inject(DynamicDialogRef);
   public dialogService = inject(DialogService);
 
+  nonItems: string = "";
   questions: ListQuestionDto = {
     id: 0,
     question: '',
@@ -43,6 +45,7 @@ export class QuizAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.defineValue();
+    this.getMsg();
   }
 
   defineValue() {
@@ -53,6 +56,21 @@ export class QuizAddComponent implements OnInit {
       { reqQuestionId: 0, choiceText: '', isCorrect: 'N', createDate: new Date() }
     ];
   }
+
+  getMsg() {
+    this._apiService.getAllMsg().subscribe({
+      next: (response: ResponseDto<MsgDto[]>) => {
+        if (response.isSuccess == true) {
+          this.nonItems = response.result.find((msg: MsgDto) => msg.msgCode === 'T002')?.msgDesc || "";
+          console.log("nonItems: ", this.nonItems);
+        }
+      },
+      error: (error) => {
+        console.log("Error getMsg: ", error);
+      }
+    });
+  }
+
 
 
   async saveData() {
@@ -85,7 +103,7 @@ export class QuizAddComponent implements OnInit {
     const validateData = this.choiceItems.every(item => item.choiceText && item.choiceText.trim() !== '');
 
     if (!validateQuestion) {
-      alert('กรุณากรอกคำถาม');
+      alert(this.nonItems);
       return false;
     }
     return validateData;
