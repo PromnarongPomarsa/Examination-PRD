@@ -78,6 +78,7 @@ export class QuizFormComponent implements OnInit {
         this.isLoading = false;
         if (response.isSuccess == true) {
           this.nonItems = response.result.find((msg: MsgDto) => msg.msgCode === 'T001')?.msgDesc || "";
+          console.log("nonItems: ", this.nonItems);
         }
       },
       error: (error) => {

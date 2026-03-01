@@ -7,7 +7,7 @@
     </ng-template>
     <div class="p-6">
 
-      <button pButton type="button" label="เพิ่มข้อสอบ" class="p-button-success mb-3" (click)="addQuestion()">
+      <button pButton type="button" [raised]="true" label="เพิ่มข้อสอบ" class="p-button-success mb-3" (click)="addQuestion()">
       </button>
 
       @if (questions.length > 0) {
@@ -33,7 +33,7 @@
       }
       @else {
       <div class="text-center text-back-500">
-        <span class="text-black-alpha-90">ยังไม่มีข้อสอบ</span>
+        <span class="text-black-alpha-90">{{ nonItems }}</span>
       </div>
       }
     </div>

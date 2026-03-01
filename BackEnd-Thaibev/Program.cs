@@ -30,6 +30,7 @@ builder.Services.AddControllersWithViews();
 
 // service
 builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IMasterService, MasterService>();
 // repository
 builder.Services.AddScoped<IMasterRepository, MasterRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();

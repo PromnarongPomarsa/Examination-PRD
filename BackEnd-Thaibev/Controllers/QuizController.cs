@@ -12,19 +12,19 @@ namespace BackEnd_Thaibev.Controllers
     public class QuizController : Controller
     {
         private ResponseDto _response;
-        private readonly IMasterRepository _masterRepo;
         private readonly IQuestionService _questionService;
-        public QuizController(IMasterRepository masterRepo, IQuestionService questionService)
+        private readonly IMasterService _masterService;
+        public QuizController(IMasterRepository masterRepo, IQuestionService questionService, IMasterService masterService)
         {
             _response = new ResponseDto();
-            _masterRepo = masterRepo;
             _questionService = questionService;
+            _masterService = masterService;
         }
 
         [HttpGet("get-all-msg")]
         public async Task<ResponseDto> getAllMsg()
         {
-            ResponseDto response = await _masterRepo.getAllMsg();
+            ResponseDto response = await _masterService.getAllMsg();
             return _response = response;
         }
 
