@@ -10,6 +10,7 @@ RUN npm run build --configuration=production
 FROM nginx:alpine
 
 COPY default.conf.template /etc/nginx/templates/default.conf.template
-COPY --from=build /app/dist/thaibev-test /usr/share/nginx/html
+COPY --from=build /app/dist/thaibev-test/browser /usr/share/nginx/html
 
+RUN ls -R /app/dist
 EXPOSE 80
