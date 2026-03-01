@@ -1,8 +1,11 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+// import primeNG
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Button } from "primeng/button";
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -15,15 +18,19 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
   ],
   templateUrl: './quiz-add.component.html',
-  styleUrl: './quiz-add.component.css'
+  styleUrl: './quiz-add.component.css',
+  providers: [DialogService, DynamicDialogRef]
 })
 export class QuizAddComponent implements OnInit {
+  public ref = inject(DynamicDialogRef);
+  public dialogService = inject(DialogService);
 
   choiceItems: any[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
+    this.defineValue();
   }
 
   defineValue() {
@@ -35,12 +42,20 @@ export class QuizAddComponent implements OnInit {
     ];
   }
 
-  validation() {
 
+  async saveData() {
+    const valiData = await this.validation();
+    console.log('validateData: ', valiData);
   }
 
-  saveData() {
+  cancel(){
+    this.ref?.close();
+    console.log('cancel',this.ref);
+  }
 
+  async validation() {
+    const validateData = this.choiceItems.every(item => item.choiceText && item.choiceText.trim() !== '');
+    return validateData;
   }
 
   ngOnDestroy() {

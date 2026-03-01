@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 // PrimeNG imports
 import { providePrimeNG } from 'primeng/config';
 import Lara from '@primeng/themes/lara';
+import { DialogService } from 'primeng/dynamicdialog';
 
 
 import { routes } from './app.routes';
@@ -18,5 +19,6 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Lara
       }
-    })]
+    }),
+    DialogService]
 };

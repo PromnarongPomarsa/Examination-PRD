@@ -1,5 +1,5 @@
 <div class="quiz-container p-6">
-  <div class="p-fluid">
+  <div class="p-fluid p-formgrid p-grid">
     <div class="field grid align-items-center mb-4">
       <label for="question" class="col-12 md:col-3 font-medium text-black-alpha-90 text-center">
         คำถาม
@@ -10,36 +10,34 @@
     </div>
 
     <div class="field grid align-items-center mb-3">
-      <label class="col-12 md:col-3 text-black-alpha-90">คำตอบ 1</label>
+      <label class="col-12 md:col-3 text-black-alpha-90">คำตอบ 1 <span class="text-red-500">*</span></label> 
       <div class="col-12 md:col-9">
         <input pInputText type="text" [(ngModel)]="choiceItems[0].choiceText" class="w-full p-inputtext" />
       </div>
     </div>
-
     <div class="field grid align-items-center mb-3">
-      <label class="col-12 md:col-3 text-black-alpha-90 text-align: center;">คำตอบ 2</label>
+      <label class="col-12 md:col-3 text-black-alpha-90 text-align: center;">คำตอบ 2 <span class="text-red-500"> *</span></label>
       <div class="col-12 md:col-9">
         <input pInputText type="text" [(ngModel)]="choiceItems[1].choiceText" class="w-full p-inputtext" />
       </div>
     </div>
 
     <div class="field grid align-items-center mb-3">
-      <label class="col-12 md:col-3 text-black-alpha-90 text-align: center;">คำตอบ 3</label>
+      <label class="col-12 md:col-3 text-black-alpha-90 text-align: center;">คำตอบ 3 <span class="text-red-500">*</span></label>
       <div class="col-12 md:col-9">
         <input pInputText type="text" [(ngModel)]="choiceItems[2].choiceText" class="w-full p-inputtext" />
       </div>
     </div>
 
     <div class="field grid align-items-center mb-4">
-      <label class="col-12 md:col-3 text-black-alpha-90 text-align: center;">คำตอบ 4</label>
+      <label class="col-12 md:col-3 text-black-alpha-90 text-align: center;">คำตอบ 4 <span class="text-red-500">*</span></label>
       <div class="col-12 md:col-9">
         <input pInputText type="text" [(ngModel)]="choiceItems[3].choiceText" class="w-full p-inputtext" />
       </div>
     </div>
-
     <div class="flex justify-content-center gap-3 mt-4">
-      <p-button label="บันทึก" severity="success" /> 
-      <p-button label="ยกเลิก" severity="danger" /> 
+      <p-button label="บันทึก" severity="success" (click)="saveData()" />
+      <p-button label="ยกเลิก" severity="danger" (click)="cancel()" />
     </div>
   </div>
 </div>

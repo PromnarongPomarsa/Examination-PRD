@@ -20,7 +20,7 @@ namespace BackEnd_Thaibev.Services
             _mapper = mapper;
         }
 
-        public async Task<ResponseDto> createQuestion(TbTQuestionDto request)
+        public async Task<ResponseDto> createQuestion(QuestionListDto request)
         {
 
             request.createDate = DateTime.UtcNow;

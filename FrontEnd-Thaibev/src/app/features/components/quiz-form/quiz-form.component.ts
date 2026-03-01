@@ -32,7 +32,7 @@ import { ApiService } from '../../../services/api.service';
   ],
   templateUrl: './quiz-form.component.html',
   styleUrl: './quiz-form.component.css',
-  providers: [DialogService, DynamicDialogRef]
+  providers: []
 })
 export class QuizFormComponent implements OnInit {
   // open modal
@@ -96,7 +96,7 @@ export class QuizFormComponent implements OnInit {
   }
 
   addQuestion() {
-    const ref = this.dialogService.open(QuizAddComponent, {
+    this.ref = this.dialogService.open(QuizAddComponent, {
       header: 'IT 08-2',
       width: '50%',
       modal: true,
@@ -104,7 +104,7 @@ export class QuizFormComponent implements OnInit {
       styleClass: 'quiz-page'
     });
 
-    ref?.onClose.subscribe((result: ResponseDto<any>)=> {
+    this.ref?.onClose.subscribe((result: ResponseDto<any>)=> {
       console.log("closed with result: ", result);
     });
   }

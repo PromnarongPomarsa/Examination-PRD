@@ -30,7 +30,7 @@ namespace BackEnd_Thaibev.Controllers
         }
 
         [HttpPost("save-question")]
-        public async Task<ResponseDto> saveQuestion([FromBody] TbTQuestionDto request)
+        public async Task<ResponseDto> saveQuestion([FromBody] QuestionListDto request)
         {
             ResponseDto response = await _questionService.createQuestion(request);
             return _response = response;

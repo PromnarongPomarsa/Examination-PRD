@@ -52,13 +52,13 @@
 
 .p-inputtext {
   background-color: #ffffff !important;
-  color: #333333 !important; /* This defines the text color as dark gray */
+  color: #333333 !important; 
 }
 
-.p-dialog {
+/* .p-dialog {
     border-radius: 15px;
-    overflow: hidden; /* Important so content follows rounded corners */
-}
+    overflow: hidden; 
+} */
 
 .p-dialog-header {
     border-top-left-radius: 15px;
