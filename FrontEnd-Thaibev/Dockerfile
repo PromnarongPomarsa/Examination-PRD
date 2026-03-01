@@ -1,12 +1,15 @@
-FROM node:22-alpine AS build
+# Build Stage
+FROM node:22-alpine as build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build --configuration=production
 
+# Production Stage
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist/thaibev-test /usr/share/nginx/html
 
-CMD ["sh", "-c", "nginx -g 'daemon off;'"]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
