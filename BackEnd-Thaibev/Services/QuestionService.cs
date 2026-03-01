@@ -60,7 +60,7 @@ namespace BackEnd_Thaibev.Services
             if (!getAllQuestion.IsSuccess)
             {
                 _response.IsSuccess = false;
-                _response.Message = "Unable to process: No question data found";
+                _response.Message = getAllQuestion.Message;
                 return _response;
             }
             List<TbTQuestion> listQuestion = getAllQuestion.Result as List<TbTQuestion>;
@@ -70,7 +70,7 @@ namespace BackEnd_Thaibev.Services
             if (!getChoiceItemsAll.IsSuccess)
             {
                 _response.IsSuccess = false;
-                _response.Message = "Unable to process: No choice items data found";
+                _response.Message = getChoiceItemsAll.Message;
                 return _response;
             }
             List<TbTChoiceItems> listChoiceItems = getChoiceItemsAll.Result as List<TbTChoiceItems>;
@@ -112,21 +112,48 @@ namespace BackEnd_Thaibev.Services
 
             return _response;
         }
-        public async Task<ResponseDto> deleteQuestion(int question_id)
+        public async Task<ResponseDto> deleteQuestion(QuestionIdDto request)
         {
-            ResponseDto getData = await _questionRepo.getQuestionById(question_id);
+            int question_id = request.questionId;
 
-            if (getData.Result == null)
+            ResponseDto getQuestion = await _questionRepo.getQuestionById(question_id);
+
+            if (getQuestion.Result == null)
             {
                 _response.IsSuccess = false;
                 _response.Message = $"Unable to process: This question {question_id} id is doen't exists";
                 return _response;
             }
 
-            TbTQuestion questionData = getData.Result as TbTQuestion;
-            ResponseDto response = await _questionRepo.deleteQuestion(questionData);
+            TbTQuestion questionData = getQuestion.Result as TbTQuestion;
 
-            _response = response;
+            ResponseDto getChoice = await _questionRepo.getChoiceByQuestionId(question_id);
+
+            if (!getChoice.IsSuccess || getChoice.Result == null)
+            {
+                _response.IsSuccess = false;
+                _response.Message = $"Unable to process: This question {question_id} id is doen't exists";
+                return _response;
+            }
+            List<TbTChoiceItems> choiceData = getQuestion.Result as List<TbTChoiceItems>;
+
+            ResponseDto delChoiceData = await _questionRepo.deleteChoiceList(choiceData);
+
+            if (!delChoiceData.IsSuccess)
+            {
+                _response.IsSuccess = false;
+                _response.Message = delChoiceData.Message;
+            }
+
+            ResponseDto delQuestion = await _questionRepo.deleteQuestion(questionData);
+
+
+            if (!delQuestion.IsSuccess)
+            {
+                _response.IsSuccess = false;
+                _response.Message = delQuestion.Message;
+            }
+
             return _response;
         }
     }

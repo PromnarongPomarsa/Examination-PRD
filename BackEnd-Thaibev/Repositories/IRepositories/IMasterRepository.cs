@@ -1,4 +1,4 @@
-﻿using BackEnd_Thaibev.Models;
+﻿using BackEnd_Thaibev.Models.Dto;
 
 namespace BackEnd_Thaibev.Repository.IRepository
 {

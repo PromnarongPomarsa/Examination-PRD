@@ -1,5 +1,4 @@
-﻿using BackEnd_Thaibev.Models;
-using BackEnd_Thaibev.Models.Dto;
+﻿using BackEnd_Thaibev.Models.Dto;
 
 namespace BackEnd_Thaibev.Services.IServices
 {
@@ -7,6 +6,6 @@ namespace BackEnd_Thaibev.Services.IServices
     {
         Task<ResponseDto> getAllQuestion();
         Task<ResponseDto> createQuestion(QuestionListDto questionDto);
-        Task<ResponseDto> deleteQuestion(int question_id);
+        Task<ResponseDto> deleteQuestion(QuestionIdDto request);
     }
 }

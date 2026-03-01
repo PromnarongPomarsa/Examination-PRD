@@ -2,6 +2,7 @@
 using BackEnd_Thaibev.Repository.IRepository;
 using BackEnd_Thaibev.Data;
 using Microsoft.EntityFrameworkCore;
+using BackEnd_Thaibev.Models.Dto;
 
 namespace BackEnd_Thaibev.Repository
 {

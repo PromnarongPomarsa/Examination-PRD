@@ -1,6 +1,4 @@
-﻿using BackEnd_Thaibev.Models.Dto;
-
-namespace BackEnd_Thaibev.Models
+﻿namespace BackEnd_Thaibev.Models.Dto
 {
     public class QuestionListDto
     {

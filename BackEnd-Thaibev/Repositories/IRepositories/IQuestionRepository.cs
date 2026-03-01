@@ -1,4 +1,5 @@
 ﻿using BackEnd_Thaibev.Models;
+using BackEnd_Thaibev.Models.Dto;
 
 namespace BackEnd_Thaibev.Repositories.IRepositories
 {
@@ -10,5 +11,7 @@ namespace BackEnd_Thaibev.Repositories.IRepositories
         Task<ResponseDto> getQuestionAll();
         Task<ResponseDto> getQuestionById(int question_id);
         Task<ResponseDto> getChoiceItemsAll();
+        Task<ResponseDto> getChoiceByQuestionId(int question_id);
+        Task<ResponseDto> deleteChoiceList(List<TbTChoiceItems> entity);
     }
 }

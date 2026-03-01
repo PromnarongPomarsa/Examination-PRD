@@ -1,5 +1,4 @@
 ﻿using AspNetCoreGeneratedDocument;
-using BackEnd_Thaibev.Models;
 using BackEnd_Thaibev.Models.Dto;
 using BackEnd_Thaibev.Repository.IRepository;
 using BackEnd_Thaibev.Services.IServices;
@@ -44,9 +43,9 @@ namespace BackEnd_Thaibev.Controllers
         }
 
         [HttpPost("delete-question")]
-        public async Task<ResponseDto> deleteQuestion(int question_id)
+        public async Task<ResponseDto> deleteQuestion([FromBody] QuestionIdDto request)
         {
-            ResponseDto response = await _questionService.deleteQuestion(question_id);
+            ResponseDto response = await _questionService.deleteQuestion(request);
             return _response = response;
 
         }

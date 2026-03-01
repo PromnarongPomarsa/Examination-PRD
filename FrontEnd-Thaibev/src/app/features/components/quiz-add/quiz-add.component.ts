@@ -73,9 +73,6 @@ export class QuizAddComponent implements OnInit {
         console.log("Error getQuestionData: ", error)
       }
     })
-
-
-    console.log('validateData: ', valiData);
   }
 
   cancel() {

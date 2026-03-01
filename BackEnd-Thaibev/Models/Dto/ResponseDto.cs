@@ -1,4 +1,4 @@
-﻿namespace BackEnd_Thaibev.Models
+﻿namespace BackEnd_Thaibev.Models.Dto
 {
     public class ResponseDto
     {

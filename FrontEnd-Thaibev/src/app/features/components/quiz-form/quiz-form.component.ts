@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CardModule } from 'primeng/card';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ProgressSpinner } from 'primeng/progressspinner';
+
 
 // Import the component
 import { QuizAddComponent } from '../quiz-add/quiz-add.component';
@@ -19,6 +21,7 @@ import { ListQuestionDto } from '../../../models/ListQuestionDto';
 
 //service api
 import { ApiService } from '../../../services/api.service';
+import { QuestionIdDto } from '../../../models/QuestionIdDto';
 
 @Component({
   selector: 'app-quiz-form',
@@ -29,6 +32,7 @@ import { ApiService } from '../../../services/api.service';
     ButtonModule,
     FormsModule,
     CardModule,
+    ProgressSpinner
   ],
   templateUrl: './quiz-form.component.html',
   styleUrl: './quiz-form.component.css',
@@ -40,25 +44,10 @@ export class QuizFormComponent implements OnInit {
   public dialogService = inject(DialogService);
 
   // variables for quiz form
-  q1: string = '';
-  q2: string = '';
+  isLoading: boolean = false;
   displayItems = false;
   nonItems: string = "";
   questions: ListQuestionDto[] = [];
-  // questions: any[] = [
-  //   {
-  //     id: 1,
-  //     text: 'ข้อใดกล่าวถูกต้อง',
-  //     options: ['3', '5', '9', '11'],
-  //     answer: null
-  //   },
-  //   {
-  //     id: 3,
-  //     text: 'X + 2 = 4 จงหาค่า X',
-  //     options: ['1', '2', '3', '4'],
-  //     answer: null
-  //   }
-  // ];
   constructor(
     private _apiService: ApiService,
     router: Router) { }
@@ -69,28 +58,30 @@ export class QuizFormComponent implements OnInit {
   }
 
   getQuestionsData() {
+    this.isLoading = true;
     this._apiService.getQuestions().subscribe({
       next: (response: ResponseDto<ListQuestionDto[]>) => {
-        if (response.isSuccess == true) {
-          this.questions = response.result;
-        }
-          console.log("questions: ", this.questions);
+        this.isLoading = false;
+          this.getQuestionsData();
+        console.log("questions: ", this.questions);
       },
       error: (error) => {
-        console.log("Error getQuestionData: ",error)
+        console.log("Error getQuestionData: ", error)
       }
     })
   }
 
   getMsg() {
+    this.isLoading = true;
     this._apiService.getAllMsg().subscribe({
       next: (response: ResponseDto<MsgDto[]>) => {
+        this.isLoading = false;
         if (response.isSuccess == true) {
           this.nonItems = response.result.find((msg: MsgDto) => msg.msgCode === 'T001')?.msgDesc || "";
         }
       },
       error: (error) => {
-        console.log("Error getMsg: ",error);
+        console.log("Error getMsg: ", error);
       }
     });
   }
@@ -104,15 +95,29 @@ export class QuizFormComponent implements OnInit {
       styleClass: 'quiz-page'
     });
 
-    this.ref?.onClose.subscribe((result: ResponseDto<any>)=> {
+    this.ref?.onClose.subscribe((result: ResponseDto<any>) => {
       this.getQuestionsData();
     });
   }
 
   deleteQuestion(id: number) {
-    // When you remove an item, Angular's index in the HTML 
-    // will handle the "Running Number" update automatically
-    this.questions = this.questions.filter(q => q.id !== id);
+    let provideData: QuestionIdDto = {
+      questionId: id
+    }
+    this.isLoading = true;
+    this._apiService.deleteQuestion(provideData).subscribe({
+      next: (response: ResponseDto<null>) => {
+        this.isLoading = false;
+        if (response.isSuccess == true) {
+          this.getQuestionsData();
+        }
+        console.log("questions: ", this.questions);
+      },
+      error: (error) => {
+        console.log("Error getQuestionData: ", error)
+      }
+    })
+
   }
 
   ngOnDestroy() {

@@ -1,3 +1,9 @@
+@if (isLoading) {
+<div class="spinner-overlay">
+  <p-progressSpinner strokeWidth="4" animationDuration=".5s" aria-label="Loading"></p-progressSpinner>
+</div>
+}
+
 <div class="quiz-page grid p-0">
 
   <!-- LEFT PANEL -->
@@ -27,7 +33,8 @@
                 <button pButton 
                         type="button" 
                         label="ลบ" 
-                        class="p-button-danger p-button-sm">
+                        class="p-button-danger p-button-sm"
+                        (click)="deleteQuestion(question.id)">
                 </button>
               </div>
 

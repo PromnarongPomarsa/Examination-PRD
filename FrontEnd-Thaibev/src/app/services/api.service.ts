@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 // import model
 import { ListQuestionDto } from '../models/ListQuestionDto';
+import { QuestionIdDto } from '../models/QuestionIdDto';
 
 @Injectable({
     providedIn: 'root'
@@ -24,4 +25,7 @@ export class ApiService {
         return this.http.post(`/api/quiz/save-question`, data);
     }
 
+    deleteQuestion(questionId: QuestionIdDto): Observable<any> {
+        return this.http.post(`/api/quiz/delete-question`, questionId);
+    }
 }
