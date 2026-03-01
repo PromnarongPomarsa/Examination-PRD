@@ -23,7 +23,7 @@ CREATE TABLE public.tb_t_choice_items (
 
 DROP TABLE tb_t_question CASCADE;
 
-truncate table tb_t_question;
+--truncate table tb_t_choice_items restart identity;
 
 select * from tb_t_choice_items;
 select * from tb_t_question ;

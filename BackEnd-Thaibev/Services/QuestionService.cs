@@ -22,10 +22,35 @@ namespace BackEnd_Thaibev.Services
 
         public async Task<ResponseDto> createQuestion(QuestionListDto request)
         {
+            TbTQuestion entityQuestion = new TbTQuestion();
+            entityQuestion.question = request.question;
+            entityQuestion.create_date = DateTime.UtcNow;
 
-            request.createDate = DateTime.UtcNow;
-            TbTQuestion entity = _mapper.Map<TbTQuestion>(request);
-            ResponseDto response = await _questionRepo.saveQuestion(entity);
+            ResponseDto response = await _questionRepo.saveQuestion(entityQuestion);
+
+            if (!response.IsSuccess || response.Result == null)
+            {
+                _response.IsSuccess = false;
+                _response.Message = response.Message;
+                return _response;
+            }
+
+            TbTQuestion dataQuestion = response.Result as TbTQuestion;
+            List<TbTChoiceItems> entityListChoice = _mapper.Map<List<TbTChoiceItems>>(request.choiceItems);
+
+            foreach(var item in entityListChoice)
+            {
+                item.ref_question_id = dataQuestion.id;
+                item.create_date = DateTime.UtcNow;
+            }
+            ResponseDto saveChoiceItems = await _questionRepo.saveChoiceList(entityListChoice);
+
+            if (!saveChoiceItems.IsSuccess)
+            {
+                _response.IsSuccess = false;
+                _response.Message = saveChoiceItems.Message;
+            }
+
             return _response;
         }
         public async Task<ResponseDto> getAllQuestion()

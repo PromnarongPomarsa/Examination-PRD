@@ -105,7 +105,7 @@ export class QuizFormComponent implements OnInit {
     });
 
     this.ref?.onClose.subscribe((result: ResponseDto<any>)=> {
-      console.log("closed with result: ", result);
+      this.getQuestionsData();
     });
   }
 

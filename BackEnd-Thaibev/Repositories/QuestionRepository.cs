@@ -20,8 +20,10 @@ namespace BackEnd_Thaibev.Repositories
         {
             try
             {
+                _db.ChangeTracker.Clear();
                 _db.tb_t_question.Add(entity);
                 await _db.SaveChangesAsync();
+                _response.Result = entity;
             }
             catch (Exception ex)
             {
@@ -31,11 +33,12 @@ namespace BackEnd_Thaibev.Repositories
             return _response;
         }
 
-        public async Task<ResponseDto> saveChoice(TbTChoiceItems entity)
+        public async Task<ResponseDto> saveChoiceList(List<TbTChoiceItems> entity)
         {
             try
             {
-                _db.tb_t_choice_items.Add(entity);
+                _db.ChangeTracker.Clear();
+                _db.tb_t_choice_items.AddRange(entity);
                 await _db.SaveChangesAsync();
             }
             catch (Exception ex)
