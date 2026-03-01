@@ -97,6 +97,7 @@ export class QuizFormComponent implements OnInit {
 
   addQuestion() {
     const ref = this.dialogService.open(QuizAddComponent, {
+      header: 'IT 08-2',
       width: '50%',
       modal: true,
       closable: true,
@@ -112,6 +113,12 @@ export class QuizFormComponent implements OnInit {
     // When you remove an item, Angular's index in the HTML 
     // will handle the "Running Number" update automatically
     this.questions = this.questions.filter(q => q.id !== id);
+  }
+
+  ngOnDestroy() {
+    if (this.ref) {
+      this.ref.close();
+    }
   }
 
 }
