@@ -6,26 +6,29 @@ import { Observable } from 'rxjs';
 import { ListQuestionDto } from '../models/ListQuestionDto';
 import { QuestionIdDto } from '../models/QuestionIdDto';
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
     private http = inject(HttpClient);
     constructor() { }
+    apiUrl = environment.apiUrl;
 
     getAllMsg(): Observable<any> {
-        return this.http.get(`/api/quiz/get-all-msg`);
+        return this.http.get(`${this.apiUrl}/quiz/get-all-msg`);
     }
 
     getQuestions(): Observable<any> {
-        return this.http.get(`/api/quiz/get-question`);
+        return this.http.get(`${this.apiUrl}/quiz/get-question`);
     }
 
     saveQuestion(data: ListQuestionDto): Observable<any> {
-        return this.http.post(`/api/quiz/save-question`, data);
+        return this.http.post(`${this.apiUrl}/quiz/save-question`, data);
     }
 
     deleteQuestion(questionId: QuestionIdDto): Observable<any> {
-        return this.http.post(`/api/quiz/delete-question`, questionId);
+        return this.http.post(`${this.apiUrl}/quiz/delete-question`, questionId);
     }
 }

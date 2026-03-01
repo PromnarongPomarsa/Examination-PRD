@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CardModule } from 'primeng/card';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ProgressSpinner } from 'primeng/progressspinner';
 
 
 // Import the component
@@ -31,8 +30,7 @@ import { QuestionIdDto } from '../../../models/QuestionIdDto';
     RadioButtonModule,
     ButtonModule,
     FormsModule,
-    CardModule,
-    ProgressSpinner
+    CardModule
   ],
   templateUrl: './quiz-form.component.html',
   styleUrl: './quiz-form.component.css',
